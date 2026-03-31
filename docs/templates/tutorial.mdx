@@ -1,0 +1,362 @@
+---
+title: "[task or outcome] tutorial"
+description: "[who this is for, what they will accomplish, and why it matters]"
+slug: "/tutorials/[short-slug]"
+canonicalId: "tutorial-[short-identifier]"
+audiences:
+  - users
+domain: platform
+phase: operations
+docType: tutorial
+visibility: public
+status: canonical
+owner: thomas-carter
+publish: true
+versioned: true
+reviewCadence: per-release
+lastReviewed: 2026-03-31
+tags:
+  - tutorial
+sidebar_position: 1
+---
+
+# Goal
+
+State exactly what the reader will achieve by following this tutorial.
+
+This section should answer:
+
+- What will the reader have completed by the end?
+- What real outcome should they expect?
+- Why is this worth doing?
+
+Write this as a concrete result, not a vague topic statement.
+
+Good:
+- “Set up the local documentation environment, validate the canonical docs corpus, sync public and internal site content, and start both Docusaurus sites locally.”
+
+Bad:
+- “Learn about local setup.”
+
+# Audience
+
+State who this tutorial is for.
+
+Be specific. Examples:
+
+- new contributor
+- engineer working in the repo for the first time
+- maintainer preparing a release
+- user trying to navigate versioned documentation
+- operator deploying the docs sites
+
+Also state any assumed background knowledge.
+
+Example:
+
+- “This tutorial is for engineers who are comfortable using Git and a terminal but have not previously worked in this repository.”
+
+# Outcome Summary
+
+Briefly summarize the final state the reader should reach.
+
+Examples:
+
+- a local environment is working
+- a document has been authored and validated
+- a release docs version has been created
+- a search index has been rebuilt
+- a deployment has been completed
+
+This section should let the reader quickly judge whether this tutorial matches their need.
+
+# Prerequisites
+
+List everything the reader must have before starting.
+
+Include, as applicable:
+
+- required software
+- required versions
+- required access
+- required environment variables
+- required repository state
+- required accounts or credentials
+- required prior knowledge
+- required related docs to read first
+
+Use a bullet list.
+
+Example:
+
+- Node.js installed
+- pnpm installed
+- repository cloned locally
+- access to the internal docs deployment environment
+- familiarity with basic Git workflows
+
+If there are no prerequisites beyond common tools, say so explicitly.
+
+# Estimated Time
+
+Provide a realistic estimate.
+
+Examples:
+
+- 10–15 minutes
+- 30–45 minutes
+- 1–2 hours
+
+If the duration depends heavily on environment state, say so.
+
+# When to Use This Tutorial
+
+Explain the scenarios where this tutorial is the right path.
+
+Examples:
+
+- first-time local setup
+- adding a new canonical document
+- preparing a release docs cut
+- deploying documentation changes
+- debugging a failed docs validation run
+
+Also mention when a different tutorial, reference doc, or runbook would be more appropriate.
+
+# Inputs and Starting State
+
+Describe what the reader should begin with.
+
+Examples:
+
+- a clean checkout on the main branch
+- an already installed workspace
+- an authored draft doc in `docs/`
+- a release tag ready to be documented
+- a broken deployment that needs rollback
+
+This section should let the reader compare their situation to the expected starting point.
+
+# Steps
+
+Perform the tutorial in explicit, numbered steps.
+
+Use subsections with clear titles.
+
+## Step 1 — [clear action title]
+
+Explain what to do.
+
+Include:
+- exact commands
+- exact paths
+- exact file names
+- exact UI actions, if any
+- what the reader should expect to see
+
+Example:
+
+```bash
+# example command
+pnpm install
+````
+
+After the instructions, briefly explain why this step matters.
+
+## Step 2 — [clear action title]
+
+Continue the same pattern.
+
+## Step 3 — [clear action title]
+
+Continue until the tutorial is complete.
+
+Prefer short, precise instructions over large blocks of prose.
+
+# Commands and Code
+
+If the tutorial requires commands, scripts, configuration, or code snippets, place them here or inline inside the steps.
+
+Use fenced code blocks with the correct language.
+
+Examples:
+
+```bash
+pnpm docs:validate
+pnpm docs:sync
+pnpm --filter docs-public start
+```
+
+```yaml
+label: Engineers
+position: 3
+link:
+  type: generated-index
+  title: Engineer Documentation
+  description: Build, architecture, implementation, and operations material for engineers.
+```
+
+If commands differ by environment, separate them clearly.
+
+# Expected Results
+
+Describe what success looks like after completing the steps.
+
+Examples:
+
+* a command exits successfully
+* a page loads at a specific route
+* a new doc appears in the correct site section
+* a generated artifact is present
+* a deployment artifact is created
+* validation passes with no errors
+
+Be specific enough that the reader can self-check without guessing.
+
+# Verification
+
+Tell the reader exactly how to confirm the tutorial worked.
+
+Include:
+
+* commands to rerun
+* pages to inspect
+* files to verify
+* output to check
+* routes to open
+* artifacts to confirm
+
+Example:
+
+```bash
+pnpm docs:validate
+pnpm docs:sync
+pnpm --filter docs-public build
+pnpm --filter docs-internal build
+```
+
+If success must be verified manually, describe the manual checks explicitly.
+
+# Troubleshooting
+
+List the most likely failure modes and how to resolve them.
+
+Use subsections or bullet points.
+
+Examples:
+
+## Problem — Validation fails due to missing front matter
+
+Explain:
+
+* why it happens
+* how to inspect the failing document
+* what to add or correct
+
+## Problem — Synced docs do not appear in the expected site
+
+Explain:
+
+* likely routing or visibility causes
+* how to inspect metadata
+* how to rerun sync and verify output
+
+## Problem — Build fails due to broken links
+
+Explain:
+
+* how to find the broken link
+* how to fix relative paths or slugs
+* how to rerun the build
+
+This section should save the reader time under normal failure conditions.
+
+# Common Mistakes
+
+List the mistakes readers are most likely to make.
+
+Examples:
+
+* editing generated site-local docs instead of root `docs/`
+* using the wrong `visibility`
+* putting a captain’s log entry outside `docs/journal/`
+* forgetting required headings for a document type
+* versioning content that should remain unversioned
+* linking public docs to internal-only routes or assets
+
+This section should be concise and practical.
+
+# Variations and Alternatives
+
+Explain any supported alternate ways to achieve the same result.
+
+Examples:
+
+* local vs CI-driven workflow
+* public vs internal publication path
+* one-off manual generation vs automated generation
+* development build vs production build
+* release flow vs day-to-day authoring flow
+
+If no meaningful alternatives exist, explicitly say so.
+
+# Cleanup or Follow-Up
+
+Describe anything the reader should do after completing the tutorial.
+
+Examples:
+
+* commit the created files
+* open a pull request
+* update a related ADR
+* publish a journal entry
+* run a deployment workflow
+* remove temporary artifacts
+* notify maintainers
+
+If no cleanup is needed, say so clearly.
+
+# Related Documents
+
+List the most useful companion docs.
+
+Examples:
+
+* reference docs
+* ADRs
+* runbooks
+* architecture notes
+* other tutorials
+* captain’s-log entries
+
+Use repo-relative paths where practical.
+
+Example:
+
+* `docs/reference/frontmatter-contract-reference.md`
+* `docs/implementation/docs-authoring-workflow.md`
+* `docs/runbooks/rebuild-doc-sites-runbook.md`
+
+# Revision Notes
+
+Use this section to note changes that materially affect the tutorial.
+
+Examples:
+
+* commands changed
+* a generator replaced a manual step
+* a deployment flow changed
+* versioning behavior changed
+* an old approach became deprecated
+
+For stable tutorials, keep this brief.
+
+# Suggested Commit Message
+
+Provide a clear example commit message if the tutorial usually results in repo changes.
+
+Example:
+
+```text
+docs(tutorials): add [tutorial topic]
+```

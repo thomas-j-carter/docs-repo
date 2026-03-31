@@ -2,5 +2,11 @@
   "name": "@repo/tools-docs",
   "private": true,
   "version": "0.0.0",
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "sync:public": "tsx src/sync/build-public-docs.ts",
+    "sync:internal": "tsx src/sync/build-internal-docs.ts",
+    "generate": "tsx src/generate/run-all.ts",
+    "validate": "tsx src/validate/run-all.ts"
+  }
 }

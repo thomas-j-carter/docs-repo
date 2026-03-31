@@ -1,0 +1,347 @@
+---
+title: "Captain’s Log: [concise outcome-focused title]"
+description: "[what was attempted, changed, or learned]"
+slug: "/journal/[yyyy-mm-dd]-[slug]"
+canonicalId: "captains-log-[yyyy-mm-dd]-[short-identifier]"
+audiences:
+  - engineers
+  - maintainers
+domain: platform
+phase: implementation
+docType: captain-log
+visibility: internal
+status: active
+owner: thomas-carter
+publish: true
+versioned: false
+reviewCadence: none
+lastReviewed: 2026-03-31
+tags:
+  - captains-log
+  - implementation
+authors:
+  - thomas-carter
+date: 2026-03-31
+---
+
+# Objective
+
+State exactly what you were trying to accomplish in this work session.
+
+This section should answer:
+
+- What was the immediate goal?
+- What concrete outcome were you aiming for?
+- What would count as success for this entry?
+
+Write this section so that a future reader can understand the purpose of the session in under a minute.
+
+# Context
+
+Explain why this work mattered at this point in the project.
+
+Include relevant context such as:
+
+- the broader initiative or milestone this work belongs to
+- what happened immediately before this session
+- any dependencies, blockers, or prior decisions that shaped the work
+- why this task was chosen now rather than later
+
+Do not assume the reader remembers prior entries.
+
+# Starting State
+
+Describe the system, repo, document set, or environment as it existed before you began.
+
+Include only facts that matter to understanding the work performed, for example:
+
+- relevant files or directories that already existed
+- current behavior or current failure mode
+- prior configuration or prior architecture state
+- known limitations or known open questions going into the session
+
+This section should give the reader a reliable baseline.
+
+# Assumptions
+
+List the assumptions you made before or during the work.
+
+Examples:
+
+- expected behavior of a tool or framework
+- expected repository state
+- expected deployment behavior
+- expected compatibility or environment conditions
+
+Be explicit. If an assumption later proves wrong, that should be obvious when the reader reaches the failure and correction sections.
+
+# Inputs and References
+
+List the inputs that materially informed the work.
+
+Examples:
+
+- prior ADRs
+- architecture notes
+- tickets or milestones
+- prior captain’s-log entries
+- specific files or directories
+- commands or scripts already present
+- external documentation consulted
+
+Use repo-relative paths where possible.
+
+Example format:
+
+- `docs/decisions/adr/adr-0001-two-doc-sites-one-canonical-corpus.md`
+- `tools/docs/src/sync/build-public-docs.ts`
+- `apps/docs-public/docusaurus.config.ts`
+
+# Commands Run
+
+Include the exact commands you ran, in order, as faithfully as practical.
+
+Use fenced code blocks and preserve arguments, flags, environment variables, and working-directory context when relevant.
+
+```bash
+# Example
+pnpm install
+pnpm docs:validate
+pnpm docs:sync
+pnpm docs:build:public
+````
+
+If commands were run from different directories, say so clearly.
+
+If a command failed, include the command here anyway. Do not hide failed attempts.
+
+# Files Created or Changed
+
+List every file or major path materially created or changed during the session.
+
+Use repo-relative paths.
+
+Example:
+
+* `docs/reference/docs-tooling-overview.md`
+* `packages/docs-config/src/taxonomy.ts`
+* `tools/docs/src/validate/validate-frontmatter.ts`
+* `apps/docs-internal/src/pages/documentation-map.tsx`
+
+If many files changed, group them by subsystem.
+
+# Work Performed
+
+Provide the actual narrative of the work, step by step.
+
+This section should read like a hybrid of:
+
+* engineering report
+* implementation log
+* reproducible walkthrough
+
+Use subsections if needed.
+
+## Step 1 — [brief step title]
+
+Describe what you did and why.
+
+Include:
+
+* what change you made
+* what problem it solved
+* what decision logic you used
+* what alternatives you considered, if relevant
+
+## Step 2 — [brief step title]
+
+Continue in the same pattern.
+
+## Step 3 — [brief step title]
+
+Continue until the session is fully represented.
+
+Prefer concrete detail over vague summary.
+
+Bad:
+
+* “Worked on the docs system.”
+
+Good:
+
+* “Added strict front matter validation for `canonicalId`, `visibility`, and `docType` because invalid metadata was otherwise only surfacing later during sync.”
+
+# Mistakes, Failures, and Surprises
+
+Document what went wrong, what failed, what was confusing, and what unexpected behavior appeared.
+
+This section is mandatory because it preserves the real engineering trail.
+
+Include:
+
+* incorrect assumptions
+* failed commands
+* broken builds
+* misleading errors
+* false starts
+* unexpected framework behavior
+* architectural surprises
+* edge cases discovered
+
+Do not sanitize this section. It is one of the most valuable parts of the log.
+
+# Fixes Applied
+
+Explain how you corrected the mistakes or failures documented above.
+
+For each fix, describe:
+
+* what the root cause was
+* what change resolved it
+* why that fix was chosen
+* whether the fix is final, temporary, or partial
+
+If a failure remains unresolved, say so explicitly and move the unresolved portion into the open questions or next-step sections.
+
+# Final State
+
+Describe the system as it existed when the session ended.
+
+Include concrete outcomes such as:
+
+* files now present
+* commands now succeeding
+* commands still failing
+* docs now written
+* validations now enforced
+* routes now available
+* deployment state now changed
+* remaining constraints
+
+This section should make it easy to compare the end state against the starting state.
+
+# Verification
+
+State exactly how you verified the outcome.
+
+Include:
+
+* commands run
+* manual checks performed
+* pages loaded
+* files inspected
+* validations passed
+* builds completed
+* artifacts produced
+
+Example:
+
+```bash
+pnpm docs:validate
+pnpm docs:sync
+pnpm --filter docs-public build
+pnpm --filter docs-internal build
+```
+
+If verification was incomplete, say exactly what was and was not verified.
+
+# Artifacts Produced
+
+List the useful outputs of the session.
+
+Examples:
+
+* new documents
+* new ADRs
+* generated docs
+* scripts
+* workflows
+* deployment configs
+* build artifacts
+* diagrams
+* templates
+
+If no durable artifact was produced, say so clearly.
+
+# Lessons Learned
+
+Capture the durable takeaways.
+
+Focus on things that future-you, another engineer, or a contributor would benefit from knowing.
+
+Examples:
+
+* pitfalls to avoid
+* tool behavior worth remembering
+* decisions that should be carried forward
+* new constraints discovered
+* process improvements for future sessions
+
+This section should be concise but substantive.
+
+# Open Questions
+
+List unresolved questions that remain after the session.
+
+Examples:
+
+* architectural questions
+* tooling gaps
+* deployment unknowns
+* versioning questions
+* auth/search decisions not yet finalized
+* validation edge cases not yet addressed
+
+If there are no open questions, explicitly write:
+
+* None at this time.
+
+# Risks and Follow-Up Concerns
+
+List any risks introduced, uncovered, or still present.
+
+Examples:
+
+* incomplete validation coverage
+* generated-doc drift risk
+* deployment misconfiguration risk
+* untested release flow
+* weak search quality
+* missing auth hardening
+
+If a risk is low-confidence or speculative, say so.
+
+# Next Step
+
+State the single most logical next action after this session.
+
+This should be concrete and actionable.
+
+Good examples:
+
+* “Implement duplicate slug and duplicate `canonicalId` validation.”
+* “Replace placeholder generated-doc inventories with real OpenAPI and schema generators.”
+* “Wire internal docs deployment behind the reverse-proxy auth boundary and verify access behavior.”
+* “Author `docs/reference/frontmatter-contract-reference.md` so the validation rules and author expectations match.”
+
+# Suggested Commit Message
+
+Provide a clear commit message summarizing the session.
+
+Example:
+
+```text
+docs(docs-system): add captain's log template and authoring structure
+```
+
+# Appendix
+
+Use this section only when needed for:
+
+* longer command outputs
+* error excerpts
+* alternative approaches considered in more detail
+* tables or lists too bulky for the main narrative
+* temporary notes worth preserving with the session
+
+Keep the main body readable. Put overflow detail here rather than cluttering earlier sections.

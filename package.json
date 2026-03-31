@@ -4,7 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docs:sync": "pnpm docs:sync:public && pnpm docs:sync:internal",
+    "docs:sync:public": "pnpm --filter @repo/docs-tools sync:public",
+    "docs:sync:internal": "pnpm --filter @repo/docs-tools sync:internal",
+
+    "docs:validate": "pnpm --filter @repo/docs-tools validate",
+    "docs:generate": "pnpm --filter @repo/docs-tools generate",
+
+    "docs:build": "pnpm docs:build:public && pnpm docs:build:internal",
+    "docs:build:public": "pnpm docs:sync:public && pnpm --filter docs-public build",
+    "docs:build:internal": "pnpm docs:sync:internal && pnpm --filter docs-internal build",
+
+    "docs:dev:public": "pnpm docs:sync:public && pnpm --filter docs-public start",
+    "docs:dev:internal": "pnpm docs:sync:internal && pnpm --filter docs-internal start",
+
+    "docs:version:public": "pnpm --filter docs-public docusaurus docs:version",
+    "docs:version:internal": "pnpm --filter docs-internal docusaurus docs:version"
   },
   "keywords": [],
   "author": "",

@@ -1,1 +1,16 @@
 # TODO
+### `docs-validate.yml`
+
+Runs on PRs touching:
+
+* `docs/**`
+* `tools/docs/**`
+* `packages/docs-config/**`
+* `apps/docs-public/**`
+* `apps/docs-internal/**`
+
+Steps:
+
+1. install deps
+2. run generated-docs step if needed
+3. run `pnpm docs:validate`

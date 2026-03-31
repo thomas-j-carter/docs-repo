@@ -1,1 +1,19 @@
 # TODO
+### `docs-release-version.yml`
+
+Manual or release-triggered.
+
+Inputs:
+
+* `site`: `public | internal | both`
+* `version`: semver string
+
+Steps:
+
+1. install deps
+2. run `pnpm docs:generate`
+3. run sync
+4. run appropriate `docs:version` command(s)
+5. commit `versioned_docs`, `versioned_sidebars`, `versions.json`
+6. rebuild
+7. deploy

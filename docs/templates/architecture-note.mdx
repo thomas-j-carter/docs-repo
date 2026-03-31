@@ -1,0 +1,482 @@
+---
+title: "[component, concern, or boundary] architecture note"
+description: "[what this note explains, why it matters, and where it applies]"
+slug: "/architecture/[short-slug]"
+canonicalId: "architecture-note-[short-identifier]"
+audiences:
+  - architects
+  - engineers
+  - maintainers
+domain: platform
+phase: architecture
+docType: architecture-note
+visibility: internal
+status: canonical
+owner: thomas-carter
+publish: true
+versioned: true
+reviewCadence: per-release
+lastReviewed: 2026-03-31
+tags:
+  - architecture
+sidebar_position: 1
+---
+
+# Problem
+
+State the architectural problem, concern, or design question this note addresses.
+
+This section should answer:
+
+- What part of the system needs explanation or design clarity?
+- Why is this topic important enough to merit an architecture note?
+- What uncertainty, risk, or complexity does this note reduce?
+
+Examples:
+
+- “How should canonical root docs be synchronized into public and internal Docusaurus site-local content trees without creating source-of-truth drift?”
+- “How should the internal documentation site be protected while preserving a static-site deployment model?”
+- “How should documentation be organized so multiple audiences can navigate it without turning the site into a maze?”
+
+Be specific.  
+A vague architecture note tends to become a vague implementation.
+
+# Context
+
+Describe the relevant background.
+
+Include:
+
+- the larger system this note belongs to
+- the constraints that shape the design
+- prior decisions or ADRs that matter
+- existing repo structure or deployment model
+- important product, operational, or contributor requirements
+- any current pain points or ambiguities
+
+This section should help a reader understand why the design space looks the way it does.
+
+Examples of useful context:
+
+- one canonical `docs/` corpus must feed two sites
+- internal docs require an auth boundary
+- release-versioned docs must be preserved exactly
+- generated docs must be tool-owned
+- audience is the primary navigation axis
+- search must be strong from day one
+
+# Status and Decision Context
+
+Explain the current design status of the note.
+
+Use this section to say whether the note is:
+
+- exploratory
+- current-state descriptive
+- proposed target architecture
+- accepted architecture pending implementation
+- accepted architecture already partially implemented
+
+Also say whether this note is:
+
+- subordinate to an ADR
+- complementing an ADR with implementation depth
+- documenting the current architecture in more detail than an ADR would
+
+Example:
+
+- “This note describes the accepted target architecture implied by ADR-0001 and ADR-0004 and provides implementation-level clarity for engineers.”
+
+# Scope
+
+Define exactly what this note covers and what it does not cover.
+
+Examples:
+
+- covers sync pipeline boundaries, but not theme styling
+- covers auth boundary placement, but not identity provider provisioning
+- covers content classification and route design, but not prose style guidelines
+- covers deployment topology for docs, but not broader platform networking
+
+This section prevents the note from becoming a catch-all dumping ground.
+
+# Goals
+
+List the architectural goals this design must satisfy.
+
+Examples:
+
+- one authoritative source of truth
+- clean public/internal boundary
+- deterministic generation and sync
+- low contributor confusion
+- self-hosted deployment simplicity
+- exact release snapshots
+- support for strong search
+- explicit enforcement of content rules
+
+Use a bullet list or numbered list.
+
+# Non-Goals
+
+List what this design is intentionally **not** trying to solve.
+
+Examples:
+
+- replacing Git as the source of truth
+- providing a full CMS for non-technical editing on day one
+- implementing semantic search immediately
+- supporting arbitrary audience structures without validation
+- preserving every rough note as versioned release content
+
+This section is important because it keeps architecture honest.
+
+# Constraints
+
+List the constraints that shape the design.
+
+Examples:
+
+- Docusaurus is a static site generator
+- public and internal docs must be separately deployable
+- generated outputs must not be manually maintained
+- canonical docs live at repo root
+- the same repo must host product and docs code
+- historical release docs must be preserved
+- internal docs require protection outside the static-site runtime
+- contributor workflows should remain Git-native
+
+Be explicit about real constraints rather than preferences disguised as rules.
+
+# Proposed / Current Design
+
+Describe the architecture itself.
+
+This is the core of the note.
+
+Explain:
+
+- major components
+- responsibilities
+- boundaries
+- flows
+- ownership
+- why the parts are shaped this way
+
+Use subsections.
+
+## Component 1 — [name]
+
+Describe:
+- what it is
+- what it owns
+- what it does not own
+- how it interacts with the rest of the system
+
+Example components:
+
+- canonical docs corpus
+- docs-config package
+- docs-tools validation layer
+- public Docusaurus site
+- internal Docusaurus site
+- deployment/auth boundary
+- generated-docs pipeline
+
+## Component 2 — [name]
+
+Continue in the same pattern.
+
+## Component 3 — [name]
+
+Continue as needed.
+
+Prefer crisp boundaries over generic narrative.
+
+# Boundaries and Responsibilities
+
+Describe the key responsibility splits.
+
+This section should make it obvious who or what owns each concern.
+
+Examples:
+
+- root `docs/` owns authored canonical content
+- `apps/docs-public/` owns public presentation only
+- `apps/docs-internal/` owns internal presentation only
+- `tools/docs` owns validation, sync, and generation
+- `packages/docs-config` owns the metadata contract
+- deployment/auth infrastructure owns internal site access control
+- generated directories are tool-owned and not hand-edited
+
+Use a table if helpful.
+
+Example:
+
+| Concern | Owner | Notes |
+|---|---|---|
+| Canonical authored content | `docs/` | Source of truth |
+| Public rendered content | `apps/docs-public/` | Generated sync target |
+| Internal rendered content | `apps/docs-internal/` | Generated sync target |
+| Metadata rules | `packages/docs-config` | Shared contract |
+| Validation and sync | `tools/docs` | Enforced in CI and local workflows |
+
+# Data Flow
+
+Explain how information moves through the system.
+
+Use a step-by-step flow.
+
+Example:
+
+1. Author creates or updates a canonical document in root `docs/`.
+2. Validation checks front matter, taxonomy, paths, slugs, IDs, and publication rules.
+3. Generation creates or refreshes generated content where applicable.
+4. Sync filters and routes canonical content into public and internal site-local trees.
+5. Docusaurus builds static outputs for each site.
+6. Deployment publishes the public site and the protected internal site separately.
+
+If relevant, include multiple flows:
+- authoring flow
+- release-versioning flow
+- deployment flow
+- search indexing flow
+
+# Structural View
+
+Provide a tree, diagram description, or pseudo-structure of the design.
+
+Example:
+
+```text
+repo/
+├── docs/                    # canonical corpus
+├── apps/
+│   ├── docs-public/         # public presentation site
+│   └── docs-internal/       # internal presentation site
+├── packages/
+│   ├── docs-config/         # metadata contract and shared rules
+│   └── docs-theme/          # shared visual layer
+└── tools/
+    └── docs/                # validate, generate, sync, deploy-prep
+````
+
+This section should make the design easier to grasp visually.
+
+# Interfaces and Contracts
+
+Describe the contracts between major parts of the architecture.
+
+Examples:
+
+* front matter contract for authored docs
+* sync input/output contract
+* generated-doc provenance contract
+* deployment artifact contract
+* internal/public visibility contract
+* release-versioning contract
+
+For each contract, define:
+
+* producer
+* consumer
+* required fields or behavior
+* failure modes if violated
+
+Example:
+
+## Contract — Canonical Authored Document
+
+Producer:
+
+* contributor authoring in root `docs/`
+
+Consumer:
+
+* validation and sync tooling
+
+Required:
+
+* valid front matter
+* unique `canonicalId`
+* valid `visibility`
+* valid `docType`
+* required headings for the document class
+
+Failure mode:
+
+* validation fails and content does not enter the sync pipeline
+
+# Key Design Decisions
+
+List the most important design choices embodied in this architecture.
+
+Examples:
+
+* one canonical corpus instead of site-local authorship
+* two separate Docusaurus sites instead of one mixed site
+* audience-first information architecture
+* selective versioning rather than versioning everything
+* deployment-layer auth for internal docs
+* tool-owned generated outputs
+* deterministic sync and generation
+
+If applicable, reference the ADRs that made these decisions authoritative.
+
+# Alternatives Considered
+
+Describe the meaningful alternatives that were considered for this architectural concern.
+
+Examples:
+
+* one mixed public/internal site
+* hand-maintained public/internal docs trees
+* CMS-first editing model
+* domain-first or phase-first primary navigation
+* single-site auth gating instead of separate deployment boundary
+* unversioned living docs only
+* fully versioned everything, including journal content
+
+For each alternative, briefly explain:
+
+* what it offered
+* why it was not chosen
+* what trade-off caused rejection
+
+# Trade-Offs
+
+Describe the trade-offs this design makes.
+
+Examples:
+
+* more tooling complexity in exchange for source-of-truth clarity
+* more deployment complexity in exchange for cleaner auth boundaries
+* more metadata discipline in exchange for better search and discoverability
+* more up-front structure in exchange for lower long-term entropy
+
+Be honest.
+A useful architecture note does not pretend the chosen design is free.
+
+# Risks and Failure Modes
+
+List the major risks in the design.
+
+Examples:
+
+* sync bugs could misroute content
+* internal/public boundary leaks if deployment is misconfigured
+* contributor confusion if generated trees are edited manually
+* versioning overhead could grow over time
+* search quality may lag until the corpus matures
+* metadata strictness may frustrate contributors if templates and docs are weak
+* non-deterministic generation could cause CI churn
+
+Explain which risks are currently mitigated and which are still open.
+
+# Mitigations
+
+For each major risk, describe the mitigation.
+
+Examples:
+
+* strict validation before sync
+* generated-output directories treated as disposable
+* CI determinism checks
+* deployment-layer separation for internal docs
+* templates for all supported document types
+* explicit documentation of publication rules
+* versioning restricted to eligible content classes
+
+This section should make the design feel operationally grounded.
+
+# Operational Implications
+
+Explain what this architecture means in practice for contributors and maintainers.
+
+Examples:
+
+* contributors author only in root `docs/`
+* maintainers operate two deployment paths
+* release docs require a version-cut workflow
+* generated content should never be manually corrected in output directories
+* internal docs protection is an infrastructure responsibility
+* docs validation becomes a hard gate in CI
+* section landing pages and category metadata must be maintained or generated
+
+This is the “how people live with this architecture” section.
+
+# Open Questions
+
+List unresolved questions that remain around this design.
+
+Examples:
+
+* whether to add a CMS-backed editing layer later
+* when to move from local search to a stronger search engine
+* how much of the internal architecture should ever be selectively published
+* whether some runbooks should later become versioned
+* how deployment auth should integrate with the broader platform identity system
+
+If there are no open questions, explicitly say so.
+
+# Adoption / Migration Plan
+
+Explain how this architecture should be adopted.
+
+Possible contents:
+
+* directories to create first
+* rules to establish before content scales
+* validation to implement before opening contribution broadly
+* which existing files to migrate
+* when to cut the first release docs version
+* how to transition from a scaffold to a production-ready docs system
+
+If the architecture is greenfield and requires no migration, say so clearly.
+
+# Related Documents
+
+List the most relevant related docs.
+
+Examples:
+
+* ADRs
+* implementation docs
+* reference docs
+* runbooks
+* tutorials
+* captain’s-log entries
+
+Use repo-relative paths where practical.
+
+Example:
+
+* `docs/decisions/adr/adr-0001-two-doc-sites-one-canonical-corpus.md`
+* `docs/reference/docs-tooling-overview.md`
+* `docs/implementation/docs-validation-and-sync-workflow.md`
+* `docs/runbooks/rebuild-doc-sites-runbook.md`
+
+# Revision Notes
+
+Use this section to record material changes to the architecture note over time.
+
+Examples:
+
+* sync model changed
+* deployment boundary changed
+* internal auth approach changed
+* generator ownership rules changed
+* release-versioning model changed
+* search architecture changed
+
+Keep this concise and factual.
+
+# Suggested Commit Message
+
+Provide a clear example commit message for adding or materially updating this architecture note.
+
+Example:
+
+```text
+docs(architecture): add [component or concern] architecture note
+```

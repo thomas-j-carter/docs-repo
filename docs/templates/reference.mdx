@@ -1,0 +1,467 @@
+---
+title: "[subject] reference"
+description: "[what this document defines, describes, or makes authoritative]"
+slug: "/reference/[short-slug]"
+canonicalId: "reference-[short-identifier]"
+audiences:
+  - architects
+  - engineers
+  - maintainers
+domain: platform
+phase: architecture
+docType: reference
+visibility: internal
+status: canonical
+owner: thomas-carter
+publish: true
+versioned: true
+reviewCadence: per-release
+lastReviewed: 2026-03-31
+tags:
+  - reference
+sidebar_position: 1
+---
+
+# Purpose
+
+State exactly what this reference document exists to define, clarify, or make authoritative.
+
+This section should answer:
+
+- What subject does this document cover?
+- Why does this reference need to exist?
+- What decisions, implementations, or operations should rely on it?
+
+A good purpose statement makes the role of the document immediately clear.
+
+Examples:
+
+- “This document defines the canonical front matter contract for authored documentation.”
+- “This document explains the source-of-truth boundaries for generated reference content.”
+- “This document defines the allowed documentation taxonomy and how it is used.”
+
+# Scope
+
+Describe the boundaries of the document.
+
+Be explicit about:
+
+- what is included
+- what is excluded
+- what related subjects are handled elsewhere
+- whether this document is normative, descriptive, or both
+
+Examples:
+
+- “This document covers the required metadata fields for canonical docs, journal entries, and generated docs. It does not define Docusaurus theme configuration.”
+- “This document defines the project documentation taxonomy. It does not define site navigation copy or visual presentation.”
+
+This section prevents the reference from becoming vague or sprawling.
+
+# Status and Authority
+
+Explain how authoritative this document is.
+
+Typical statements include:
+
+- this is the canonical source of truth for the subject
+- this is a supporting reference derived from an ADR
+- this is a descriptive summary of current implementation
+- this document is normative and should govern contributor behavior
+- this document is informative and should not override ADRs or enforced tooling rules
+
+If another document has higher authority, name it explicitly.
+
+Example:
+
+- “This document is normative for day-to-day authoring behavior but does not override accepted ADRs.”
+
+# Audience
+
+State who should read this reference and in what context.
+
+Examples:
+
+- architects evaluating the system design
+- engineers implementing tooling or generators
+- maintainers operating release/version workflows
+- contributors authoring new documentation
+- users trying to understand stable site behavior
+
+If the document serves multiple audiences differently, say so.
+
+# Definitions
+
+Define the terms that a reader must understand to use the document correctly.
+
+Use clear, short subsections.
+
+## [Term]
+
+Provide a precise definition.
+
+Examples of useful reference terms:
+
+- canonical corpus
+- generated output
+- synchronized site-local docs
+- audience
+- domain
+- phase
+- document type
+- visibility
+- status
+- versioned doc
+- captain’s log
+- ADR
+- runbook
+- public publication
+- internal publication
+
+This section should remove ambiguity, not create it.
+
+# Subject Overview
+
+Give a concise overview of the subject before going into detailed rules or structures.
+
+This section should orient the reader by answering:
+
+- what this thing is
+- how it fits into the broader documentation system
+- why it matters
+- what dependencies or adjacent concepts exist
+
+This is not the place for all the detailed rules yet.  
+It is the conceptual introduction to the detailed content that follows.
+
+# Canonical Rules / Contracts / Interfaces
+
+This is the core of the reference document.
+
+Describe the stable rules, contracts, or interfaces that define the subject.
+
+Use subsections, tables, or lists where appropriate.
+
+Examples of what belongs here:
+
+- required metadata fields
+- allowed enum values
+- directory conventions
+- publication boundaries
+- versioning rules
+- route conventions
+- naming rules
+- slug rules
+- generator ownership rules
+- input/output contracts
+- validation expectations
+
+Organize the content clearly.
+
+## Rule 1 — [short rule title]
+
+State the rule directly and unambiguously.
+
+Then explain:
+
+- what the rule is
+- why it exists
+- how it should be interpreted
+- what common mistakes to avoid
+
+## Rule 2 — [short rule title]
+
+Continue in the same pattern.
+
+## Rule 3 — [short rule title]
+
+Continue as needed.
+
+If the subject is better represented as a table, use a table instead.
+
+Example structure:
+
+| Field | Required | Meaning | Notes |
+|---|---:|---|---|
+| `canonicalId` | Yes | Stable identity of the document | Must be globally unique |
+| `visibility` | Yes | Publication boundary | Must be `public` or `internal` |
+| `versioned` | Yes | Whether release snapshots apply | Not allowed for captain’s-log docs |
+
+# Allowed Values / Variants
+
+If the subject has enumerated values, supported variants, or approved options, list them here.
+
+Examples:
+
+- allowed `docType` values
+- allowed `visibility` values
+- allowed `phase` values
+- allowed status values
+- supported output types
+- supported deployment modes
+- supported search strategies
+- supported naming conventions
+
+For each value, provide:
+
+- the value
+- what it means
+- when to use it
+- when not to use it
+
+Example:
+
+## `visibility: public`
+
+Use when the content is suitable for publication in the public docs portal.
+
+Do not use when the content includes internal operational details, auth boundaries, infrastructure internals, or other non-public information.
+
+# Structure / Data Model / Layout
+
+If the subject has a structural shape, define it here.
+
+Examples:
+
+- document structure
+- front matter schema
+- directory layout
+- input/output shape of a generator
+- route structure
+- site content structure
+- classification model
+
+Use code fences, trees, pseudo-schemas, or tables where helpful.
+
+Example:
+
+```text
+docs/
+├── audience/
+├── journal/
+├── decisions/
+├── reference/
+├── tutorials/
+├── runbooks/
+├── implementation/
+└── generated/
+````
+
+Or:
+
+```yaml
+canonicalId: "reference-some-subject"
+audiences: ["engineers", "maintainers"]
+domain: "platform"
+phase: "architecture"
+docType: "reference"
+visibility: "internal"
+status: "canonical"
+```
+
+This section should make the subject easy to visualize.
+
+# Examples
+
+Give concrete examples of correct usage.
+
+Use multiple examples if the subject is subtle.
+
+## Example 1 — [brief title]
+
+Show a correct example and explain why it is correct.
+
+## Example 2 — [brief title]
+
+Show another correct example, especially if it demonstrates a different edge or variant.
+
+Whenever possible, use repo-realistic paths, names, fields, and commands.
+
+Example:
+
+```yaml
+canonicalId: "adr-0004-public-internal-publication-boundary"
+visibility: "internal"
+versioned: true
+docType: "adr"
+```
+
+Explain:
+
+* why this is valid
+* what assumptions it relies on
+* what enforcement rules apply
+
+# Non-Examples / Invalid Cases
+
+Show the most important incorrect or forbidden uses.
+
+This section is extremely valuable because it prevents repeated mistakes.
+
+## Invalid Example 1 — [brief title]
+
+Show the incorrect pattern.
+
+Then explain:
+
+* why it is invalid
+* what rule it violates
+* how to fix it
+
+Example:
+
+```yaml
+docType: "captain-log"
+versioned: true
+```
+
+Explanation:
+
+* captain’s-log entries are historical narrative records and must not be versioned as release snapshots.
+
+Include at least the invalid cases most likely to occur in practice.
+
+# Constraints
+
+List the constraints that govern the subject.
+
+Examples:
+
+* static-site limitations
+* self-hosting constraints
+* release-versioning constraints
+* repo layout constraints
+* public/internal boundary constraints
+* generator determinism constraints
+* validation performance limits
+* contributor workflow limitations
+
+Be honest about the constraints.
+A good reference document explains not only what the system does, but what it cannot or should not do.
+
+# Operational Implications
+
+Explain what this subject means in practice for contributors, maintainers, and tooling.
+
+Examples:
+
+* files must live in specific directories
+* CI will reject invalid values
+* authors must not edit generated files
+* versioning increases maintenance overhead
+* public docs require stricter metadata quality
+* sync output is disposable and rebuildable
+
+This is the “what this means in day-to-day work” section.
+
+# Common Mistakes
+
+List the mistakes readers are most likely to make when applying this reference.
+
+Examples:
+
+* treating a generated output as canonical source
+* placing a document in the wrong folder
+* using `public` visibility for internal operational content
+* inventing unapproved taxonomy values
+* forgetting that journal content is not versioned
+* assuming site-local docs directories are manually maintained
+
+This section should be practical and specific.
+
+# Validation and Enforcement
+
+Explain how the rules in this reference are enforced.
+
+Examples:
+
+* docs validation scripts
+* CI checks
+* sync routing logic
+* directory structure rules
+* Docusaurus build failures
+* code review expectations
+
+Be clear about whether a rule is:
+
+* automatically enforced
+* manually reviewed
+* only recommended
+* planned but not yet enforced
+
+This section helps readers know how “hard” each rule really is.
+
+# Exceptions
+
+Document any permitted exceptions.
+
+Examples:
+
+* transitional compatibility rules
+* one-off generated content behavior
+* limited cases where internal docs intentionally mirror public docs
+* temporary directory exceptions during migration
+
+If no exceptions exist, explicitly say:
+
+* None at this time.
+
+# Change Management
+
+Explain how this reference should be updated when the subject changes.
+
+Examples:
+
+* update this doc first, then update tooling
+* update the ADR first, then update this doc
+* update generator contracts together with source-of-truth docs
+* coordinate versioning/publishing changes with maintainers
+
+This section should make future updates safer and more disciplined.
+
+# Related Documents
+
+List the documents most directly connected to this reference.
+
+Examples:
+
+* ADRs
+* tutorials
+* runbooks
+* implementation docs
+* architecture notes
+* captain’s-log entries
+
+Use repo-relative paths where practical.
+
+Example:
+
+* `docs/decisions/adr/adr-0002-audience-first-information-architecture.md`
+* `docs/reference/frontmatter-contract-reference.md`
+* `docs/implementation/docs-validation-and-sync-workflow.md`
+* `docs/runbooks/rebuild-doc-sites-runbook.md`
+
+# Revision Notes
+
+Use this section to record material changes to the reference over time.
+
+Examples:
+
+* a new enum value was added
+* a deprecated pattern was removed
+* a generator contract changed
+* versioning policy changed
+* site structure changed
+* validation rules were tightened
+
+Keep this concise and factual.
+
+# Suggested Commit Message
+
+Provide a clear example commit message for changes to this reference.
+
+Example:
+
+```text
+docs(reference): add [subject] reference
+```

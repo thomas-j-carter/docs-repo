@@ -1,0 +1,341 @@
+---
+title: "[operational task] runbook"
+description: "[what the operator is trying to accomplish and when to use this runbook]"
+slug: "/runbooks/[short-slug]"
+canonicalId: "runbook-[short-identifier]"
+audiences:
+  - engineers
+  - maintainers
+domain: platform
+phase: operations
+docType: runbook
+visibility: internal
+status: active
+owner: thomas-carter
+publish: true
+versioned: false
+reviewCadence: monthly
+lastReviewed: 2026-03-31
+tags:
+  - runbook
+  - operations
+sidebar_position: 1
+---
+
+# Purpose
+
+State exactly what operational task this runbook is for.
+
+This section should answer:
+
+- What is the operator trying to accomplish?
+- In what situations should this runbook be used?
+- What concrete outcome should result if the runbook is followed correctly?
+
+Write this section so that someone under time pressure can immediately tell whether they are in the right document.
+
+Examples:
+
+- “Rebuild both documentation sites from the canonical `docs/` corpus and verify that the resulting builds are clean and deployable.”
+- “Cut a new release-versioned documentation snapshot for both public and internal docs.”
+- “Recover from a failed docs deployment by rolling back to the previous known-good build artifact.”
+
+# Scope
+
+Define the boundaries of the runbook.
+
+Be explicit about:
+
+- what systems, directories, services, or workflows it covers
+- whether it applies to local development, CI, staging, production, or all of the above
+- what related procedures are intentionally out of scope
+- whether the runbook assumes an already functioning environment
+
+This section prevents misuse and reduces confusion during execution.
+
+# Audience
+
+State who should use this runbook.
+
+Examples:
+
+- maintainer on deployment duty
+- engineer debugging docs build failures
+- operator performing a release cut
+- contributor verifying generated outputs locally
+
+If special privileges or access are required, say so here.
+
+# Preconditions
+
+List everything that must be true before the procedure starts.
+
+Include only actual prerequisites, such as:
+
+- required repository state
+- required software
+- required secrets or credentials
+- required environment variables
+- required access to internal infrastructure
+- required branch or release state
+- required successful completion of earlier steps
+
+Use a bullet list.
+
+Example:
+
+- repository is cloned locally
+- dependencies are installed
+- operator has access to the internal docs host
+- required auth secrets are available
+- no uncommitted work is present unless intentionally testing local changes
+
+If there are no unusual preconditions, state that explicitly.
+
+# Inputs Needed
+
+List the inputs the operator needs to perform the procedure.
+
+Examples:
+
+- release version string
+- target environment
+- branch name
+- build artifact path
+- deployment host
+- config file path
+- backup identifier
+- prior deployment artifact reference
+
+This section is especially important for procedures that vary by release or environment.
+
+# Safety Notes
+
+List the operational cautions that matter before action is taken.
+
+Examples:
+
+- actions that affect public availability
+- actions that could expose internal content if done incorrectly
+- actions that may overwrite generated output
+- actions that may invalidate release snapshots
+- actions that require rollback planning first
+- actions that should never be done directly in generated directories
+
+This section should be brief but serious.
+
+# Procedure
+
+Describe the procedure as explicit, ordered steps.
+
+Use numbered subsections with imperative wording.
+
+## Step 1 — [clear action title]
+
+Describe exactly what to do.
+
+Include:
+
+- commands
+- directories
+- files
+- UI actions, if any
+- validation checkpoints
+- decision points
+
+Example:
+
+```bash
+pnpm docs:validate
+````
+
+After the instruction, explain what a successful result looks like.
+
+## Step 2 — [clear action title]
+
+Continue the same pattern.
+
+## Step 3 — [clear action title]
+
+Continue until the procedure is complete.
+
+Prefer precise, actionable instructions over high-level description.
+
+# Expected Outputs
+
+List the outputs or state changes the procedure should produce.
+
+Examples:
+
+* a successful build artifact
+* a versioned docs snapshot
+* a synced site-local docs tree
+* updated deployment files
+* a rebuilt search index
+* a restored prior release
+* a validated public/internal routing outcome
+
+This section should help the operator know what to look for.
+
+# Verification
+
+State exactly how to verify that the procedure succeeded.
+
+Include:
+
+* commands to run
+* pages to inspect
+* files to confirm
+* logs to check
+* routes to open
+* artifacts to examine
+* CI jobs that should pass
+
+Example:
+
+```bash
+pnpm docs:validate
+pnpm docs:sync
+pnpm --filter docs-public build
+pnpm --filter docs-internal build
+```
+
+If verification must happen in multiple environments, separate them clearly.
+
+# Rollback / Recovery
+
+Describe how to reverse or mitigate the procedure if it goes wrong.
+
+This section is mandatory for runbooks that affect deployed systems, release state, or public/internal publication.
+
+Include:
+
+* what can be rolled back
+* what cannot be cleanly rolled back
+* what artifacts or backups are needed
+* what prior state should be restored
+* what commands or actions perform the rollback
+* what to verify after rollback
+
+If rollback is not applicable, say so explicitly and explain why.
+
+# Common Failure Modes
+
+List the failures most likely to happen while following this runbook.
+
+Use subsections or bullets.
+
+## Failure — [brief title]
+
+Explain:
+
+* symptom
+* likely cause
+* immediate response
+* long-term fix if known
+
+Examples:
+
+* validation failure due to missing front matter
+* build failure due to broken links
+* sync producing empty output because of incorrect `publish` or `visibility`
+* public content accidentally referencing internal-only assets
+* versioning command run before sync completed
+* deployment artifact built from stale generated content
+
+The goal is to help the operator recover fast.
+
+# Escalation Notes
+
+Explain when the operator should stop and escalate rather than continue.
+
+Examples:
+
+* internal content appears in public output
+* rollback does not restore a working state
+* release version artifacts appear corrupted
+* authentication boundary behaves unexpectedly
+* generated docs are non-deterministic across repeated runs
+* CI and local behavior disagree in a way not explained by environment differences
+
+Also note who should be notified, if your project later formalizes roles.
+
+# Operational Constraints
+
+List constraints the operator must respect.
+
+Examples:
+
+* never edit generated site-local docs directly
+* never publish internal content by manually copying files
+* never cut a release version before validation and sync are clean
+* never bypass broken-link or duplicate-route failures in CI
+* never rotate secrets without updating the corresponding deployment config
+* never treat a failed verification step as optional
+
+This section should read like guardrails, not background theory.
+
+# Artifacts Touched
+
+List the main files, directories, systems, or outputs the procedure touches.
+
+Examples:
+
+* `docs/`
+* `apps/docs-public/docs/`
+* `apps/docs-internal/docs/`
+* `apps/docs-public/blog/`
+* `apps/docs-internal/blog/`
+* `versioned_docs/`
+* `versioned_sidebars/`
+* deployment artifacts under an `infra/` or build directory
+* CI workflow files
+
+This helps future maintainers assess blast radius.
+
+# Related Documents
+
+List the documents most useful before, during, or after this runbook.
+
+Examples:
+
+* reference docs
+* tutorials
+* ADRs
+* implementation docs
+* architecture notes
+* related captain’s-log entries
+
+Use repo-relative paths where practical.
+
+Example:
+
+* `docs/reference/docs-tooling-overview.md`
+* `docs/implementation/docs-release-workflow.md`
+* `docs/tutorials/engineers/add-and-version-a-release-doc-set.md`
+* `docs/decisions/adr/adr-0003-selective-versioning-policy.md`
+
+# Revision Notes
+
+Use this section to record material changes to the runbook over time.
+
+Examples:
+
+* deployment process changed
+* a new validation gate was added
+* rollback procedure changed
+* versioning moved from manual to workflow-driven
+* auth boundary changed
+* build artifact location changed
+
+Keep this concise and factual.
+
+# Suggested Commit Message
+
+Provide a clear example commit message for adding or materially updating the runbook.
+
+Example:
+
+```text
+docs(runbooks): add [operational task] runbook
+```

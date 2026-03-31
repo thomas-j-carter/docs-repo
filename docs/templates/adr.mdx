@@ -1,0 +1,418 @@
+---
+title: "ADR-0000: [decision title]"
+description: "[one-sentence summary of the decision and why it matters]"
+slug: "/decisions/adr/adr-0000-[short-slug]"
+canonicalId: "adr-0000-[short-identifier]"
+audiences:
+  - architects
+  - engineers
+  - maintainers
+domain: platform
+phase: architecture
+docType: adr
+visibility: internal
+status: canonical
+owner: thomas-carter
+publish: true
+versioned: true
+reviewCadence: per-release
+lastReviewed: 2026-03-31
+tags:
+  - adr
+  - architecture
+  - decision
+sidebar_position: 1
+---
+
+# Status
+
+State the current status of the decision.
+
+Use one of the following values unless your project later adopts a stricter ADR status vocabulary:
+
+- Proposed
+- Accepted
+- Superseded
+- Rejected
+- Deprecated
+
+If the status is **Superseded**, include a link to the superseding ADR in the `Related Documents` section.
+
+# Decision Summary
+
+Provide a short, high-signal summary of the decision.
+
+This section should answer, in plain language:
+
+- What was decided?
+- What problem does the decision address?
+- Why is this important enough to record?
+
+A strong summary should let a reader understand the outcome without reading the rest of the document.
+
+# Context
+
+Describe the background that made this decision necessary.
+
+Include the facts, pressures, and constraints that were present when the decision was made, such as:
+
+- product requirements
+- architectural constraints
+- security or compliance needs
+- operational concerns
+- team capacity or skill constraints
+- deployment limitations
+- repository or tooling realities
+- prior ADRs that influenced this decision
+
+This section should explain the situation clearly enough that the decision feels inevitable or at least understandable.
+
+Do **not** skip context.  
+An ADR without context becomes a rule with no memory.
+
+# Problem Statement
+
+State the exact problem or decision question that had to be resolved.
+
+Examples:
+
+- “How should documentation be separated between public and internal audiences?”
+- “Should generated reference documentation be manually editable?”
+- “How should release-versioned docs be preserved?”
+- “Should the docs system be built as one site or two?”
+
+This section should be precise. Avoid vague phrasing like “We needed a better approach.”
+
+# Decision
+
+State the decision directly and unambiguously.
+
+This section should describe:
+
+- what was chosen
+- what is now the project standard
+- what future work should assume unless a later ADR changes it
+
+Use decisive wording.
+
+Good:
+- “The project will maintain one canonical `docs/` corpus at the repository root and publish it through two separate Docusaurus sites.”
+
+Bad:
+- “We are kind of leaning toward maybe using two sites.”
+
+If the decision includes a rule, standard, or boundary, state it explicitly here.
+
+# Scope
+
+Clarify what this decision applies to.
+
+Examples:
+
+- entire repository
+- docs system only
+- deployment layer only
+- public site only
+- internal docs only
+- generated-doc pipeline only
+
+Also clarify what this decision does **not** apply to.
+
+This section prevents later overreach or misapplication.
+
+# Options Considered
+
+List the serious alternatives that were considered.
+
+Use a subsection per option.
+
+## Option A — [name]
+
+Describe the option fairly.
+
+### Advantages
+
+- Advantage 1
+- Advantage 2
+- Advantage 3
+
+### Disadvantages
+
+- Disadvantage 1
+- Disadvantage 2
+- Disadvantage 3
+
+## Option B — [name]
+
+Describe the next option the same way.
+
+## Option C — [name]
+
+Continue as needed.
+
+The point of this section is not to create a giant essay.  
+The point is to show that alternatives were considered and to preserve why they were not chosen.
+
+# Decision Drivers
+
+List the criteria that mattered most in choosing the final option.
+
+Examples:
+
+- simplicity
+- long-term maintainability
+- contributor clarity
+- security boundary clarity
+- release reproducibility
+- low operational overhead
+- self-hosting friendliness
+- versioning support
+- search quality
+- minimal content drift
+- compatibility with repo-native docs
+
+You may use a bullet list or a short ranked list.
+
+Example:
+
+1. Clear public/internal separation  
+2. Strong release-versioning support  
+3. Low risk of source-of-truth drift  
+4. Git-native authoring and review  
+5. Self-hosted deployment simplicity
+
+# Rationale
+
+Explain why the chosen option won.
+
+This section should connect:
+
+- the context,
+- the problem,
+- the decision drivers,
+- and the final decision.
+
+A good rationale answers:
+
+- Why this option instead of the others?
+- What trade-offs were accepted?
+- What was optimized for?
+- What costs were considered acceptable?
+
+Write this section so that a future reader can defend the decision without having been present.
+
+# Consequences
+
+Describe what follows from this decision.
+
+Split consequences into positive and negative.
+
+## Positive Consequences
+
+- Benefit 1
+- Benefit 2
+- Benefit 3
+
+## Negative Consequences
+
+- Cost 1
+- Cost 2
+- Cost 3
+
+## Neutral / Operational Consequences
+
+Include things that are neither obviously good nor bad, but must now be true.
+
+Examples:
+
+- new tooling required
+- new docs conventions required
+- new validation rules required
+- new deployment steps required
+
+This section is critical.  
+Every architectural decision has a carrying cost.
+
+# Implementation Notes
+
+Explain how the decision shows up in the repo, tooling, or processes.
+
+Include concrete details such as:
+
+- affected directories
+- expected configuration locations
+- required scripts
+- validation rules
+- sync behavior
+- deployment changes
+- authoring workflow implications
+
+Use repo-relative paths where possible.
+
+Examples:
+
+- `docs/`
+- `apps/docs-public/`
+- `apps/docs-internal/`
+- `tools/docs/src/sync/`
+- `packages/docs-config/src/`
+
+This section should help turn the decision into actual implementation behavior.
+
+# Migration or Adoption Plan
+
+If the decision changes existing behavior, describe how the project will adopt it.
+
+Possible contents:
+
+- immediate next steps
+- files to create or refactor
+- old patterns to deprecate
+- temporary compatibility rules
+- milestones for completion
+
+If no migration is needed, say so explicitly.
+
+Example:
+
+- “No migration is required because this ADR is being adopted before large-scale implementation begins.”
+
+# Risks
+
+List risks introduced or left unresolved by this decision.
+
+Examples:
+
+- increased tooling complexity
+- contributor confusion during transition
+- additional CI runtime
+- release-versioning overhead
+- risk of duplicated content if sync is misused
+- internal/public boundary leaks if deployment auth is misconfigured
+
+This section should name the risks plainly rather than pretending the decision is free.
+
+# Rejected Alternatives
+
+Summarize the alternatives that were actively rejected and why.
+
+This may overlap somewhat with `Options Considered`, but this section should make the rejection logic explicit.
+
+Examples:
+
+- “A single mixed public/internal docs site was rejected because it weakens the security boundary and complicates selective publication.”
+- “Manually authored site-local docs trees were rejected because they create source-of-truth drift.”
+
+This section is especially useful when the same idea resurfaces later.
+
+# Follow-Up Work
+
+List the work that should happen because this ADR was accepted.
+
+Examples:
+
+- create or update templates
+- add validation rules
+- create deployment scaffolding
+- refactor docs structure
+- add CI checks
+- write companion reference docs
+
+Use a checklist if helpful:
+
+- [ ] Create canonical `docs/` tree
+- [ ] Add front matter validation
+- [ ] Add sync pipeline
+- [ ] Add deployment runbook
+
+# Compliance / Enforcement
+
+Explain how the project will ensure the decision is actually followed.
+
+Examples:
+
+- CI validation
+- code review rules
+- directory conventions
+- generator-owned output folders
+- documented contributor workflow
+- linting or validation scripts
+
+A decision without enforcement is only a suggestion.
+
+# Exceptions
+
+Document any allowed exceptions.
+
+Examples:
+
+- limited cases where public content may be mirrored internally
+- temporary transitional rules
+- generated artifacts that are exempt from a normal authoring rule
+- cases where a runbook may be intentionally unversioned
+
+If there are no exceptions, explicitly state:
+
+- None at this time.
+
+# Supersession Policy
+
+Explain how this ADR may later be changed.
+
+Usually the rule should be:
+
+- This ADR remains authoritative until superseded by a later ADR.
+
+If there are special conditions for review or expected revisit points, state them here.
+
+Examples:
+
+- revisit after first production release
+- revisit after internal docs auth is live
+- revisit if the deployment model changes
+- revisit if the docs corpus exceeds a defined scale threshold
+
+# Related Documents
+
+List the documents most directly connected to this ADR.
+
+Examples:
+
+- prior ADRs
+- superseding ADRs
+- architecture notes
+- implementation docs
+- runbooks
+- relevant tutorials
+- related captain’s-log entries
+
+Use repo-relative links where practical.
+
+Example:
+
+- `docs/decisions/adr/adr-0001-two-doc-sites-one-canonical-corpus.md`
+- `docs/reference/docs-tooling-overview.md`
+- `docs/implementation/docs-release-workflow.md`
+
+# Notes for Future Readers
+
+Use this section for any contextual guidance that would help someone re-evaluate this decision later.
+
+Examples:
+
+- what assumptions were time-sensitive
+- what might change the recommendation
+- what evidence would justify revisiting the decision
+- what to check before proposing a replacement ADR
+
+Keep this section focused and practical.
+
+# Suggested Commit Message
+
+Provide a clear commit message summarizing the ADR addition or update.
+
+Example:
+
+```text
+docs(adr): add ADR-0000 for [decision topic]
+````
